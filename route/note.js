@@ -17,9 +17,16 @@ route.post("/", async (req, res) => {
   try {
     const note = new DataModel(req.body);
     const result = await note.save();
-    res.send(result);
+    res.json({
+      success: true,
+      message: "Successfull Saved!",
+    });
   } catch (error) {
     res.send(`Error: ${error}`);
+    res.json({
+      success: true,
+      message: `Error: ${error}`,
+    });
   }
 });
 
