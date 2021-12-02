@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021
+ * @ author: Abdorizak Abdalla aka (Xman)
+ */
 const mongoose = require("mongoose");
 const Joi = require("joi");
 

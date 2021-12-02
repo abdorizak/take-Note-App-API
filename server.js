@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021
+ * @ author: Abdorizak Abdalla aka (Xman)
+*/
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
