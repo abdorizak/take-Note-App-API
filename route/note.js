@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2021
  * @ author: Abdorizak Abdalla aka (Xman)
-*/
+ */
 const mongoose = require("mongoose");
 const express = require("express");
 const route = express.Router();
@@ -10,9 +10,16 @@ const DataModel = require("../Model/noteSchema");
 // Get ALl Note
 route.get("/", async (req, res) => {
   try {
-    res.send(await DataModel.find());
+    const note = await DataModel.find();
+    res.json({
+      status: 200,
+      message: "Sucess",
+      data: note,
+    });
   } catch (error) {
-    res.status(400).send(`Error`);
+    res.status(400).json({
+      error: error.message,
+    });
   }
 });
 
@@ -24,11 +31,11 @@ route.post("/", async (req, res) => {
     res.json({
       success: true,
       message: "Successfull Saved!",
+      data: result,
     });
   } catch (error) {
-    res.send(`Error: ${error}`);
     res.json({
-      success: true,
+      success: false,
       message: `Error: ${error}`,
     });
   }
@@ -44,9 +51,16 @@ route.put("/:id", async (req, res) => {
       },
       { new: true }
     );
-    res.send(updateNote);
+    res.json({
+      status: 200,
+      message: "Updated",
+      data: updateNote,
+    });
   } catch (error) {
-    res.send(`Error: ${error}`);
+    res.json({
+      success: false,
+      message: `Error: ${error}`,
+    });
   }
 });
 
@@ -54,9 +68,15 @@ route.put("/:id", async (req, res) => {
 route.delete("/:id", async (req, res) => {
   try {
     const deleteNote = await DataModel.findByIdAndDelete(req.params.id);
-    res.send({ success: true, message: `Note Deleted: ${deleteNote.title}` });
+    res.json({
+      status: 200,
+      message: `Note Deleted: ${deleteNote.title}`,
+    });
   } catch (error) {
-    res.send(`Error: ${error}`);
+    res.json({
+      success: false,
+      message: `Error: ${error}`,
+    });
   }
 });
 
